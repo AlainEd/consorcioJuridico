@@ -17,14 +17,14 @@ return new class extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('ci', 10);
+            $table->string('ci', 15);
             $table->string('nombre', 50);
             $table->string('apellido', 50);
-            $table->enum('sexo', ['M', 'F'])->nullable();
+            $table->enum('genero', ['M', 'F'])->nullable();
             $table->date('fecha_nac');
             $table->string('telefono', 10);
-            $table->boolean('estado');
-            //$table->timestamp('email_verified_at')->nullable();
+            //$table->boolean('estado');
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

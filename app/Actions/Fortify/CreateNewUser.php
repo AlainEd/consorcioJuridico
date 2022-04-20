@@ -23,17 +23,27 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input)
     {
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
+            'nombre' => ['required', 'string', 'max:50'],
+            'apellido' => ['required', 'string', 'max:50'],
+            'ci' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
-            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
+            //'genero' => ['enum'],
+            'fecha_nac' => ['required'],
+            'telefono' => ['required']
+            //'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
         return DB::transaction(function () use ($input) {
             return tap(User::create([
-                'name' => $input['name'],
+                'nombre' => $input['nombre'],
+                'apellido' => $input['apellido'],
+                'ci' => $input['ci'],
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
+                'genero' => $input['genero'],
+                'fecha_nac' => $input['fecha_nac'],
+                'telefono' => $input['telefono'],
             ]), function (User $user) {
                 $this->createTeam($user);
             });
