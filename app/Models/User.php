@@ -34,6 +34,8 @@ class User extends Authenticatable
         'genero',
         'fecha_nac',
         'telefono',
+        'estado',
+        'id_rol'
     ];
 
     /**

@@ -27,6 +27,12 @@
                     <x-jet-nav-link href="" :active="false">
                         {{ __('Contacto') }}
                     </x-jet-nav-link>
+
+                    @if (Auth::user()->id_rol == 1)
+                        <x-jet-nav-link href="{{ route('usuarios') }}" :active="request()->routeIs('usuarios')">
+                            {{ __('Usuarios') }}
+                        </x-jet-nav-link>
+                    @endif
                 </div>
             </div>
 

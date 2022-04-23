@@ -2,6 +2,11 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Abogado;
+use App\Models\Admin;
+use App\Models\Cliente;
+use App\Models\Juez;
+use App\Models\Procurador;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -34,8 +39,9 @@ class CreateNewUser implements CreatesNewUsers
             //'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
+
         return DB::transaction(function () use ($input) {
-            return tap(User::create([
+            $user = User::create([
                 'nombre' => $input['nombre'],
                 'apellido' => $input['apellido'],
                 'ci' => $input['ci'],
@@ -44,24 +50,45 @@ class CreateNewUser implements CreatesNewUsers
                 'genero' => $input['genero'],
                 'fecha_nac' => $input['fecha_nac'],
                 'telefono' => $input['telefono'],
-            ]), function (User $user) {
-                $this->createTeam($user);
-            });
+                'estado' => true,
+                'id_rol' => $input['id_rol']
+            ]);
+            $user->save();
+
+            $id_rol = $input['id_rol'];
+
+            switch ($id_rol) {
+                case 1:
+                    $admin = Admin::create([
+                        'id_usuario' => $user->id,
+                    ]);
+                    break;
+                case 2:
+                    $juez = Juez::create([
+                        'id_usuario' => $user->id,
+                    ]);
+                    break;
+                case 3:
+                    $abogado = Abogado::create([
+                        'id_usuario' => $user->id,
+                    ]);
+                    break;
+                case 4:
+                    $procurador = Procurador::create([
+                        'id_usuario' => $user->id,
+                    ]);
+                    break;
+                case 5:
+                    $cliente = Cliente::create([
+                        'id_usuario' => $user->id,
+                    ]);
+                    break;
+                default:
+                    
+            }
+
+            return $user;
         });
     }
 
-    /**
-     * Create a personal team for the user.
-     *
-     * @param  \App\Models\User  $user
-     * @return void
-     */
-    protected function createTeam(User $user)
-    {
-        $user->ownedTeams()->save(Team::forceCreate([
-            'user_id' => $user->id,
-            'name' => explode(' ', $user->name, 2)[0]."'s Team",
-            'personal_team' => true,
-        ]));
-    }
 }

@@ -1,4 +1,5 @@
 <x-guest-layout>
+@section('title', 'Registro')
     <x-jet-authentication-card>
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
@@ -62,6 +63,8 @@
                 <x-jet-label for="telefono" value="{{ __('Teléfono')}}"/>
                 <x-jet-input id="telefono" class="block mt-1 w-full" type="number" name="telefono" :value="old('telefono')" required autofocus autocomplete="telefono" />
             </div>
+
+            <input type="hidden" value="5" name="id_rol">
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">

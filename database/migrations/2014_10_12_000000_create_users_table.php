@@ -23,10 +23,12 @@ return new class extends Migration
             $table->enum('genero', ['M', 'F'])->nullable();
             $table->date('fecha_nac');
             $table->string('telefono', 10);
-            //$table->boolean('estado');
+            $table->boolean('estado');
+            $table->unsignedBigInteger('id_rol');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('id_rol')->references('id')->on('rols');
         });
     }
 
