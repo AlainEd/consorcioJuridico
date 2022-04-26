@@ -12,5 +12,6 @@ class Procurador extends Model
     protected $table = 'procurador';
     protected $fillable = [
         'id_usuario',
+        'id_abogado'
     ];
 }

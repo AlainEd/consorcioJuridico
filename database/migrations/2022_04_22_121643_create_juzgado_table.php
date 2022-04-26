@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('procurador', function (Blueprint $table) {
+        Schema::create('juzgado', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_usuario');
-            $table->unsignedBigInteger('id_abogado');
-            $table->foreign('id_usuario')->references('id')->on('users');
-            $table->foreign('id_abogado')->references('id')->on('abogado');
+            $table->string('nombre');
+            $table->string('direccion');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('procurador');
+        Schema::dropIfExists('juzgado');
     }
 };

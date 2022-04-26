@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('juez', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_usuario');
+            $table->unsignedBigInteger('id_juzgado');
             $table->foreign('id_usuario')->references('id')->on('users');
+            $table->foreign('id_juzgado')->references('id')->on('juzgado');
             $table->timestamps();
         });
     }

@@ -49,7 +49,7 @@
                                     <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
                                 </div>
 
-                                <div class="col-span-4">
+                                <div class="col-span-2">
                                     <x-jet-label for="genero" value="{{ __('Género')}}" />
                                     <div class="container flex flex-row mt-2">
                                         <div class="form-check form-check-inline px-4">
@@ -61,6 +61,11 @@
                                             <label for="mujer">Mujer</label>
                                         </div>
                                     </div> 
+                                </div>
+
+                                <div class="col-span-2">
+                                    <x-jet-label for="id_abogao" value="{{ __('ID Abogado')}}"/>
+                                    <x-jet-input id="id_abogado" class="block mt-1 w-full" type="number" name="id_abogado" :value="old('id_abogado')" required autofocus autocomplete="id_abogado" />
                                 </div>
 
                                 <div class="col-span-2">

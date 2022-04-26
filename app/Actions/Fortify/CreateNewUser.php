@@ -55,37 +55,10 @@ class CreateNewUser implements CreatesNewUsers
             ]);
             $user->save();
 
-            $id_rol = $input['id_rol'];
-
-            switch ($id_rol) {
-                case 1:
-                    $admin = Admin::create([
-                        'id_usuario' => $user->id,
-                    ]);
-                    break;
-                case 2:
-                    $juez = Juez::create([
-                        'id_usuario' => $user->id,
-                    ]);
-                    break;
-                case 3:
-                    $abogado = Abogado::create([
-                        'id_usuario' => $user->id,
-                    ]);
-                    break;
-                case 4:
-                    $procurador = Procurador::create([
-                        'id_usuario' => $user->id,
-                    ]);
-                    break;
-                case 5:
-                    $cliente = Cliente::create([
-                        'id_usuario' => $user->id,
-                    ]);
-                    break;
-                default:
-                    
-            }
+            $cliente = Cliente::create([
+                'id_usuario' => $user->id,
+            ]);
+            $cliente->save();
 
             return $user;
         });

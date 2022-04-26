@@ -22,7 +22,7 @@ class RolSeeder extends Seeder
 
         $rol = new Rol();
         $rol->nombre = 'Juez';
-        $rol->descripcion = 'Maxima autoridad';
+        $rol->descripcion = 'Maxima Autoridad';
         $rol->save();
 
         $rol = new Rol();

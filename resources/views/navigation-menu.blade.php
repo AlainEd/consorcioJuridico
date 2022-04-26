@@ -20,7 +20,7 @@
                         {{ __('Tramites') }}
                     </x-jet-nav-link>
 
-                    <x-jet-nav-link href="" :active="false">
+                    <x-jet-nav-link href="{{ route('procesos.index') }}" :active="request()->routeIs('procesos.index')">
                         {{ __('Procesos') }}
                     </x-jet-nav-link>
 
@@ -29,7 +29,7 @@
                     </x-jet-nav-link>
 
                     @if (Auth::user()->id_rol == 1)
-                        <x-jet-nav-link href="{{ route('usuarios') }}" :active="request()->routeIs('usuarios')">
+                        <x-jet-nav-link href="{{ route('usuario.index') }}" :active="request()->routeIs('usuario.index')">
                             {{ __('Usuarios') }}
                         </x-jet-nav-link>
                     @endif

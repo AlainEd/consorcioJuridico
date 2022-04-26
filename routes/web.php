@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AbogadoController;
+use App\Http\Controllers\CrearUsuarioController;
 use App\Http\Controllers\JuezController;
+use App\Http\Controllers\ProcesoController;
 use App\Http\Controllers\ProcuradorController;
+use App\Http\Controllers\UsuarioController;
 use App\Models\Abogado;
 use Illuminate\Support\Facades\Route;
 
@@ -30,30 +33,32 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/usuarios', function () {
-        return view('users/index');
-    })->name('usuarios');
+    Route::resource('usuario', UsuarioController::class);
 
-    //Usuario Juez
-    Route::get('/usuario/crearUserJuez', function () {
+    Route::resource('procesos', ProcesoController::class);
+
+    Route::get('/select', function () {
+        return view('users.create');
+    })->name('createUser');
+
+    //Usuario Abogado
+    Route::get('/crearUserJuez', function () {
         return view('juez/create');
     })->name('createJuez');
 
-    Route::post('/usuario/createUserJuez', [JuezController::class, 'create'])->name('registrarJuez');
-
     //Usuario Abogado
-    Route::get('/usuario/crearUserAbogado', function () {
+    Route::get('/crearUserAbogado', function () {
         return view('abogado/create');
     })->name('createAbogado');
 
-    Route::post('/usuario/createUserAbogado', [AbogadoController::class, 'create'])->name('registrarAbogado');
+    Route::post('/createUserAbogado', [AbogadoController::class, 'create'])->name('registrarAbogado');
 
     //Usuario Procurador
-    Route::get('/usuario/crearUserProcurador', function () {
+    Route::get('/crearUserProcurador', function () {
         return view('procurador/create');
     })->name('createProcurador');
 
-    Route::post('/usuario/createUserProcurador', [ProcuradorController::class, 'create'])->name('registrarProcurador');
+    Route::post('/createUserProcurador', [ProcuradorController::class, 'create'])->name('registrarProcurador');
 
 });
 

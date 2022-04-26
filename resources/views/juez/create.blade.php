@@ -10,9 +10,9 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="container mx-auto">
                     <h1 class="text-center m-10">Información Personal</h1>
-                    <form method="POST" action="{{ route('registrarJuez') }}">
+                    <form method="POST" action="{{ route('registrarAbogado') }}">
                         @csrf
-                        <div class="grid grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                             <div class="container ml-10 m-5 grid grid-cols-4 gap-4">
                                 <div class="col-span-2">
                                     <x-jet-label for="nombre" value="{{ __('Nombre') }}" />
@@ -80,7 +80,7 @@
                             <div class="grid grid-row-4 grid-flow-col ml-10">
                                 <div></div>   
                                 <div class="rounded-full border-round">
-                                    <img src="https://th.bing.com/th/id/OIP.X5bQZELC8b80zsym09-9pwHaHa?pid=ImgDet&rs=1" alt="" width="300" height="300">
+                                    <img src="https://th.bing.com/th/id/OIP.Uri74sJ2xOtVBOOpLU1CXwHaHa?pid=ImgDet&rs=1" alt="" width="300" height="300">
                                 </div>
                             </div>
                         </div>

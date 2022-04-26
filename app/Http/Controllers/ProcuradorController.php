@@ -26,9 +26,10 @@ class ProcuradorController extends Controller
 
         $procurador = Procurador::create([
             'id_usuario' => $user->id,
+            'id_abogado' => $request->id_abogado,
         ]);
         $procurador->save();
          
-        return view('users.index')->with('success', 'Procurador creado correctamente');
+        return redirect()->route('usuario.index');
     }
 }
