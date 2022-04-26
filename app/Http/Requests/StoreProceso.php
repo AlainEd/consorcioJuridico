@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProcesoStore extends FormRequest
+class StoreProceso extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,21 +24,33 @@ class ProcesoStore extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required',
+            'nombre_proceso' => 'required',
             'area' => 'required',
-            'estado' => 'required',
-            'fecha',
-            'hora',
-            'fecha_cierre',
-            'id_abogado' => 'required',
-            'id_juez',
-            'id_cliente' => 'required',
-            'id_juzgado',
             'nombre_demandante' => 'required',
             'ci_demandante' => 'required',
+            'telefono' => 'required',
             'nombre_demandado' => 'required',
             'ci_demandado' => 'required',
-            'determinacion',
+
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'nombre_proceso' => '',
+            'area' => '',
+            'nombre_demandante' => '',
+            'ci_demandante' => '',
+            'nombre_demandado' => '',
+            'ci_demandado' => '',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'nombre_proceso.required' => 'Debe asignarle un nombre al proceso',
         ];
     }
 }

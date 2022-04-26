@@ -98,7 +98,7 @@
                                         <h6 class="text-sm font-semibold leading-none">Nombre</h6>
                                         <span class="text-lg text-gray-500 hover:text-black">{{ $proceso->nombre_demandado }}</span>
                                         <h6 class="text-sm mt-5 font-semibold leading-none">Cédula de Identidad</h6>
-                                        <span class="text-lg text-gray-500 hover:text-black">{{ $userCliente->ci_demandado }}</span>
+                                        <span class="text-lg text-gray-500 hover:text-black">{{ $proceso->ci_demandado }}</span>
                                     </div>
                                 </div>
                             </div>

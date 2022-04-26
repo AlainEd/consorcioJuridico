@@ -21,7 +21,7 @@
                     <div></div>
                     <div></div>
                     <div>
-                    <a href="" class="px-4 py-1 text-sm text-white bg-green-700 rounded-full">Crear Nuevo Proceso</a>
+                    <a href="{{ route('procesos.create') }}" class="px-4 py-1 text-sm text-white bg-green-700 rounded-full">Crear Nuevo Proceso</a>
                     </div>
                 </div>
 
