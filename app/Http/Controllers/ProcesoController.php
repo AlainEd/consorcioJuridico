@@ -10,9 +10,15 @@ use App\Models\Juez;
 use App\Models\Juzgado;
 use App\Models\Procesos;
 use App\Models\User;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Process\Process;
+
+use function PHPSTORM_META\type;
 
 class ProcesoController extends Controller
 {
@@ -26,8 +32,8 @@ class ProcesoController extends Controller
     public function show($proceso) {
         $proceso = Procesos::findOrFail($proceso);
         
-        $cliente = Cliente::findOrFail($proceso->id_cliente);
-        $userCliente = User::findOrFail($cliente->id_usuario);
+        // $cliente = Cliente::findOrFail($proceso->id_cliente);
+        // $userCliente = User::findOrFail($cliente->id_usuario);
         
         $abogado = Abogado::findOrFail($proceso->id_abogado);
         $userAbogado = User::findOrFail($abogado->id_usuario);
@@ -41,14 +47,14 @@ class ProcesoController extends Controller
             $juzgado = Juzgado::find($proceso->id_juzgado);
         }
 
-        return view('procesos.show', compact('proceso', 'userCliente', 'userAbogado', 'userJuez', 'juzgado'));
+        return view('procesos.show', compact('proceso', 'userAbogado', 'userJuez', 'juzgado'));
     }
 
     public function edit($proceso) {
         $proceso = Procesos::findOrFail($proceso);
         
-        $cliente = Cliente::findOrFail($proceso->id_cliente);
-        $userCliente = User::findOrFail($cliente->id_usuario);
+        // $cliente = Cliente::findOrFail($proceso->id_cliente);
+        // $userCliente = User::findOrFail($cliente->id_usuario);
         
         $abogado = Abogado::findOrFail($proceso->id_abogado);
         $userAbogado = User::findOrFail($abogado->id_usuario);
@@ -61,11 +67,26 @@ class ProcesoController extends Controller
             
             $juzgado = Juzgado::find($proceso->id_juzgado);
         }
-        return view('procesos.edit', compact('proceso', 'userCliente', 'userAbogado', 'userJuez', 'juzgado'));
+        return view('procesos.edit', compact('proceso', 'userAbogado', 'userJuez', 'juzgado'));
     }
 
-    public function update() {
-        
+    public function update(StoreProceso $request, $proceso) {
+        if (Auth::user()->id_rol == 2) {
+            $juez = DB::table('juez')->where('juez.id_usuario', '=', Auth::user()->id)->first();
+
+            $proceso = Procesos::findOrFail($proceso);
+
+            $proceso->fecha = $request->fecha;
+            $proceso->hora = $request->hora; 
+            $proceso->id_juez = $juez->id;
+            $proceso->id_juzgado = $juez->id_juzgado;
+            $proceso->estado = 'En Proceso';
+            $proceso->save();
+
+            return redirect()->route('procesos.show', $proceso);
+        }else{
+            ;
+        }
     }
 
     public function create() {
@@ -74,13 +95,18 @@ class ProcesoController extends Controller
 
     public function store(StoreProceso $request) {
         $abogado = DB::table('abogado')->where('id_usuario', '=', Auth::user()->id)->first();
-        $usuarioCliente = DB::table('users')->where('users.ci', '=', $request->ci_demandante)->first();
-        $nombreDemandante = $usuarioCliente->nombre .' '. $usuarioCliente->apellido;
-        $usuarioCliente = DB::table('cliente')->where('cliente.id_usuario', '=', $usuarioCliente->id)->first();
 
-        if ($nombreDemandante == null) {
+        $usuarioCliente = DB::table('users')->where('users.ci', '=', $request->ci_demandante)->first();
+        if ($usuarioCliente == "") {
             $nombreDemandante = $request->nombre_demandante;
+            $id_cliente = null;
+        }else{ 
+            $nombreDemandante = $usuarioCliente->nombre .' '. $usuarioCliente->apellido;
+            $usuarioCliente = DB::table('cliente')->where('cliente.id_usuario', '=', $usuarioCliente->id)->first();
+            $id_cliente = $usuarioCliente->id;
         }
+
+        $ci_demandante = $request->ci_demandante;
 
         $proceso = Procesos::create([
             'nombre' => $request->nombre_proceso,
@@ -91,10 +117,10 @@ class ProcesoController extends Controller
             'fecha_cierre' => null,
             'id_abogado' => $abogado->id,
             'id_juez' => null,
-            'id_cliente' => $usuarioCliente->id,
+            'id_cliente' => $id_cliente,
             'id_juzgado' => null,
             'nombre_demandante' => $nombreDemandante,
-            'ci_demandante' => $request->ci_demandante,
+            'ci_demandante' => $ci_demandante,
             'nombre_demandado' => $request->nombre_demandado,
             'ci_demandado' => $request->ci_demandado,
             'determinacion' => null,

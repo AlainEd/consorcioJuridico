@@ -30,7 +30,7 @@ class ProcesoSeeder extends Seeder
             'ci_demandante' => '8265743',
             'nombre_demandado' => 'demando 1',
             'ci_demandado' => '12345678',
-            'determincion' => null,
+            'determinacion' => null,
         ]);
         $proceso->save();
 
@@ -49,7 +49,7 @@ class ProcesoSeeder extends Seeder
             'ci_demandante' => '8265743',
             'nombre_demandado' => 'demando 1',
             'ci_demandado' => '12345678',
-            'determincion' => null,
+            'determinacion' => null,
         ]);
         $proceso->save();
     }

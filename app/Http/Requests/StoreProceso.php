@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreProceso extends FormRequest
 {
@@ -16,6 +17,14 @@ class StoreProceso extends FormRequest
         return true;
     }
 
+    protected $dates = [
+        'fecha', 'hora'
+    ];
+
+    protected $cast = [
+        'fecha' => 'datetime:Y-m-d',
+    ];
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,16 +32,23 @@ class StoreProceso extends FormRequest
      */
     public function rules()
     {
-        return [
-            'nombre_proceso' => 'required',
-            'area' => 'required',
-            'nombre_demandante' => 'required',
-            'ci_demandante' => 'required',
-            'telefono' => 'required',
-            'nombre_demandado' => 'required',
-            'ci_demandado' => 'required',
-
-        ];
+        if (Auth::user()->id_rol) {
+            return [
+                'fecha' => 'required',
+                'hora' => 'required',
+            ];
+        }else{
+            return [
+                'nombre_proceso' => 'required',
+                'area' => 'required',
+                'nombre_demandante' => 'required',
+                'ci_demandante' => 'required',
+                'telefono' => 'required',
+                'nombre_demandado' => 'required',
+                'ci_demandado' => 'required',
+    
+            ];
+        }   
     }
 
     public function attributes()
@@ -40,6 +56,8 @@ class StoreProceso extends FormRequest
         return [
             'nombre_proceso' => '',
             'area' => '',
+            'fecha' => '',
+            'hora' => '',
             'nombre_demandante' => '',
             'ci_demandante' => '',
             'nombre_demandado' => '',
@@ -51,6 +69,7 @@ class StoreProceso extends FormRequest
     {
         return [
             'nombre_proceso.required' => 'Debe asignarle un nombre al proceso',
+            'fecha.required' => 'Asigne bien la fecha chupa pichi.'
         ];
     }
 }

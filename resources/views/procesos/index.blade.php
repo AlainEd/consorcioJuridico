@@ -69,6 +69,7 @@
                                             <td class="px-6 py-4">
                                                 <a href="{{ route('procesos.show', $proceso) }}" class="px-4 py-1 text-sm text-white bg-blue-700 rounded-full">Ver</a>
                                                 <a href="{{ route('procesos.edit', $proceso) }}" class="px-4 py-1 text-sm text-white bg-green-700 rounded-full">Editar</a>
+                                                <a href="#" class="px-4 py-1 text-sm text-white bg-red-700 rounded-full">Eliminar</a>
                                             </td>
                                         </tr>
                                         @endforeach

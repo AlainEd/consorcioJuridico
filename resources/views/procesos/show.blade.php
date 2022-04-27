@@ -83,11 +83,11 @@
                                     <h3 class="mb-5 text-2xl text-gray-900 font-bold md:text-4xl">Datos del demandante</h3>
                                     <div>
                                         <h6 class="text-sm font-semibold leading-none">Nombre</h6>
-                                        <span class="text-lg text-gray-500 hover:text-black">{{ $userCliente->nombre .' '. $userCliente->apellido }}</span>
+                                        <span class="text-lg text-gray-500 hover:text-black">{{ $proceso->nombre_demandante }}</span>
                                         <h6 class="text-sm mt-5 font-semibold leading-none">Cédula de Identidad</h6>
-                                        <span class="text-lg text-gray-500 hover:text-black">{{ $userCliente->ci }}</span>
+                                        <span class="text-lg text-gray-500 hover:text-black">{{ $proceso->ci_demandante }}</span>
                                         <h6 class="text-sm mt-5 font-semibold leading-none">Teléfono</h6>
-                                        <span class="text-lg text-gray-500 hover:text-black">{{ $userCliente->telefono }}</span>
+                                        <span class="text-lg text-gray-500 hover:text-black">{{ $proceso->telefono_demandante }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -104,6 +104,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="flex justify-end mb-5 mr-5">
+                    <a href="#" class="mr-10 px-4 py-1 text-sm text-white bg-red-700 rounded-full">Terminar Proceso</a>
+                    <a href="{{ route('procesos.edit', $proceso) }}" class="px-4 py-1 text-sm text-white bg-green-700 rounded-full">Atender Proceso</a>
                 </div>
             </div>
         </div>
