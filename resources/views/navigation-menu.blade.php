@@ -159,9 +159,23 @@
                 {{ __('Home') }}
             </x-jet-responsive-nav-link>
 
-            <x-jet-responsive-nav-link href="" :active="false">
-                {{ __('Nosotros') }}
-            </x-jet-responsive-nav-link>
+            <x-jet-nav-link href="" :active="false">
+                {{ __('Tramites') }}
+            </x-jet-nav-link>
+
+            <x-jet-nav-link href="{{ route('procesos.index') }}" :active="request()->routeIs('procesos.index')">
+                {{ __('Procesos') }}
+            </x-jet-nav-link>
+
+            <x-jet-nav-link href="" :active="false">
+                {{ __('Contacto') }}
+            </x-jet-nav-link>
+
+            @if (Auth::user()->id_rol == 1)
+                <x-jet-nav-link href="{{ route('usuario.index') }}" :active="request()->routeIs('usuario.index')">
+                    {{ __('Usuarios') }}
+                </x-jet-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
