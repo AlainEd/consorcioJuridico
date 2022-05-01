@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('expediente', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_proceso');
             $table->string('imagen');
+            $table->string('titulo');
+            $table->string('descripcion')->nullable();
+            $table->foreign('id_proceso')->references('id')->on('proceso');
             $table->timestamps();
         });
     }

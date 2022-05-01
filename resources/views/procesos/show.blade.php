@@ -15,6 +15,10 @@
                 <div class="py-16 white">
                     <div class="container m-auto px-6 text-gray-600 md:px-12 xl:px-6">
                         <h2 class="mb-12 text-center text-2xl text-gray-900 font-bold md:text-4xl">Proceso # {{ $proceso->id }}</h2>
+                        <div class="grid grid-cols-5 mb-5">
+                            <a href="{{ route('createDocumento', $proceso->id) }}" class="px-4 py-1 text-base text-white bg-blue-700 rounded-full col-start-5">Agregar Documento Digital</a>
+                            <a href="{{ route('showDocumento', $proceso->id) }}" class="px-4 py-1 text-base text-white bg-blue-700 rounded-full col-start-4">Ver Documento Digital</a>
+                        </div>
                         <div class="grid gap-8 md:grid-rows-2 lg:grid-cols-2">
                             <div class="row-span-2 p-6 border border-gray-100 rounded-xl bg-gray-50 sm:p-8">
                                 <h3 class="mb-12 text-2xl text-gray-900 font-bold md:text-4xl">Información del Proceso</h3>

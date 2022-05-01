@@ -22,7 +22,8 @@ use function PHPSTORM_META\type;
 
 class ProcesoController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
+        $texto = trim($request->search);
         $procesos = Procesos::join('abogado', 'id_abogado', 'abogado.id')
         ->select('proceso.id', 'proceso.nombre', 'proceso.estado')
         ->get();
